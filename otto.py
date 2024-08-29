@@ -50,7 +50,7 @@ class Otto:
     
     def estado4(self):
         self.t4 = ((1 / (self.cr)) ** (self.gamma - 1)) * self.t3
-        self.v3 = self.v2
+        self.v3 = (1 / (self.cr)) * 4
         self.v4 = self.v3 * self.cr
         self.p4 = ((self.v3 / self.v4 ) ** self.gamma ) * self.p3
     
@@ -72,7 +72,17 @@ class Otto:
     def consumo_especifico(self):
         pot = self.calcula_pot_eixo()
         self.consumo_esp = self.mf / pot
-        return self.consumo_esp
+        self.consumo_esp_convertido = self.converter_kg_ws_para_g_kwh(self.consumo_esp)
+        return self.consumo_esp_convertido
+    
+    @staticmethod
+    def converter_kg_ws_para_g_kwh(valor_kg_ws):
+        # Coeficiente de conversão
+        coeficiente = 3.6 * 10**9
+        # Conversão
+        valor_g_kwh = valor_kg_ws * coeficiente
+        return valor_g_kwh
+
         
     
     
